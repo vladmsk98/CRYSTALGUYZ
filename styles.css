@@ -1,19 +1,25 @@
-/* === ОСНОВНЫЕ ПЕРЕМЕННЫЕ — под новую обложку (холодный синий, минимализм) === */
+/* ==================================================
+   EDR — минималистичный архитектурный микс
+   Стиль: чёрно-белый, индустриальный, геометрический
+   Цель: UI-дружелюбность + соответствие обложке (без неона, с текстурой)
+   Поддержка: современные браузеры, WCAG AA (контраст ≥ 4.5:1)
+   ================================================== */
+
+/* === Переменные === */
 :root {
-  /* Основные цвета — как на обложке: небо, бетон, неон */
-  --sky-blue: #5a8fd0;       /* основной акцент (как в небе) */
-  --deep-blue: #3a6faa;      /* тёмный фон для карда */
-  --neon-cyan: #00f3ff;      /* неоновая подсветка — остаётся, но сдержанно */
-  --text-light: #f8fbff;     /* почти белый, высокий контраст */
-  --text-muted: #cde4f7;     /* светло-голубой для метаданных */
-  --card-bg: rgba(12, 20, 35, 0.85); /* тёмно-синий полупрозрачный фон */
-  --border-neon: 0 0 6px rgba(0, 243, 255, 0.4);
+  /* Серая гамма — как бетон и небо */
+  --bg-dark: #121212;        /* фон */
+  --bg-mid: #2a2a2a;         /* кард */
+  --text-primary: #e8ecef;   /* основной текст */
+  --text-secondary: #a0a8b3; /* метаданные, подсказки */
+  --border-light: rgba(232, 236, 239, 0.15);
+  --border-strong: rgba(232, 236, 239, 0.3);
 
   /* Шрифт — геометрический, чёткий */
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
-/* === ОБЩИЕ СТИЛИ === */
+/* === Сброс и база === */
 * {
   margin: 0;
   padding: 0;
@@ -21,79 +27,83 @@
 }
 
 body {
-  background: linear-gradient(135deg, #1a3a5f, #2a4a7a);
-  color: var(--text-light);
+  background: var(--bg-dark);
+  color: var(--text-primary);
   font-family: var(--font-main);
   min-height: 100vh;
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Убрали сетку — обложка её не имеет */
 }
 
-/* === КОНТЕЙНЕР === */
+/* === Основной контейнер === */
 .container {
   max-width: 500px;
   width: 100%;
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
+  background: var(--bg-mid);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
   padding: 32px 24px;
   text-align: center;
-  box-shadow: 
-    var(--border-neon),
-    0 12px 30px rgba(10, 30, 60, 0.5);
-  border: 1px solid rgba(0, 243, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-strong);
 }
 
-/* === ОБЛОЖКА === */
+/* === Обложка === */
 .cover {
   width: 100%;
   max-width: 400px;
-  border-radius: 12px;
+  border-radius: 10px;
   margin: 0 auto 24px;
-  box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   display: block;
-  /* Если обложка — это именно ваш скриншот (небо + здания), она уже сама по себе выразительна */
 }
 
-/* === ЗАГОЛОВОК — как на обложке: жирный, без неоновой «пузырности», но с лёгкой тенью */
+/* === Заголовок — "EDR" в стиле обложки === */
 .track-title {
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: 1.8px;
+  font-size: 2.6rem;
+  font-weight: 900;
+  letter-spacing: 2px;
   text-transform: uppercase;
   margin: 0 0 12px;
-  color: var(--text-light);
-  text-shadow: 
-    0 0 8px rgba(0, 243, 255, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.4);
-  /* Контраст ~8.5:1 — отличный для WCAG AA */
+  color: var(--text-primary);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+  /* Рваный эффект через overlay — без SVG для простоты */
 }
 
-/* === МЕТАДАННЫЕ === */
+.track-title::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, transparent 0%, rgba(0,0,0,0.15) 70%),
+    radial-gradient(circle at 80% 70%, transparent 0%, rgba(0,0,0,0.1) 70%);
+  opacity: 0.7;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* === Метаданные === */
 .track-meta {
   font-size: 1rem;
-  opacity: 0.92;
-  color: var(--text-muted);
+  opacity: 0.85;
+  color: var(--text-secondary);
   margin: 0 0 28px;
   line-height: 1.6;
-  font-weight: 400;
 }
 
-/* === АУДИОПЛЕЕР — улучшенный, но строго в стиле обложки */
+/* === Аудиоплеер — минималистичный, но выделенный === */
 .audio-player {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  background: rgba(8, 18, 35, 0.9);
+  background: rgba(20, 24, 30, 0.9);
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 
-    0 0 14px rgba(0, 243, 255, 0.25),
-    inset 0 0 10px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(0, 243, 255, 0.25);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--border-strong);
   position: relative;
 }
 
@@ -101,126 +111,85 @@ body {
   content: "";
   position: absolute;
   top: -2px; left: -2px; right: -2px; bottom: -2px;
-  background: linear-gradient(45deg, var(--neon-cyan), var(--sky-blue));
+  background: linear-gradient(45deg, rgba(232, 236, 239, 0.1), rgba(160, 168, 179, 0.1));
   z-index: -1;
   border-radius: 14px;
-  filter: blur(6px);
-  opacity: 0.5;
+  filter: blur(4px);
+  opacity: 0.6;
 }
 
-/* Нативные элементы — минимальная стилизация */
-.audio-player::-webkit-media-controls-panel {
-  background: transparent;
-  border: none;
-}
-.audio-player::-webkit-media-controls-current-time-display,
-.audio-player::-webkit-media-controls-duration-display {
-  color: var(--text-light);
-  font-weight: 600;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-}
-
-/* === БЛОК КЕЙСА — адаптирован под «архитектурный» стиль === */
+/* === Блок кейса — архитектурный стиль === */
 .case-study {
   margin-top: 36px;
   padding-top: 28px;
-  border-top: 1px solid rgba(0, 243, 255, 0.15);
+  border-top: 1px solid var(--border-light);
   text-align: left;
 }
 
-.case-section {
-  margin-bottom: 24px;
-}
+.case-section { margin-bottom: 24px; }
 
 .case-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin: 0 0 14px;
-  color: var(--sky-blue);
-  text-shadow: 0 0 6px rgba(0, 243, 255, 0.3);
+  color: var(--text-primary);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .case-title::before {
   content: "";
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: var(--neon-cyan);
-  border-radius: 3px;
-  opacity: 0.8;
+  width: 18px;
+  height: 18px;
+  background: var(--text-secondary);
+  border-radius: 2px;
+  opacity: 0.7;
 }
 
-/* Промпт-бокс — как «техническая панель» */
 .prompt-box {
-  background: rgba(5, 12, 25, 0.85);
-  border: 1px solid rgba(86, 143, 208, 0.5);
-  border-radius: 8px;
-  padding: 14px 16px;
+  background: rgba(18, 22, 30, 0.85);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 16px;
   font-family: 'Courier New', monospace;
-  font-size: 0.92rem;
-  color: var(--text-light);
-  margin-bottom: 10px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
   white-space: pre-wrap;
-  word-break: break-word;
 }
 
 .case-note {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  opacity: 0.8;
-  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  opacity: 0.75;
 }
 
-/* Процесс и результат */
-.process-steps,
-.result-list {
+.process-steps, .result-list {
   padding-left: 24px;
   margin: 0;
-  color: var(--text-light);
+  color: var(--text-primary);
   line-height: 1.7;
 }
 
-.process-steps li,
-.result-list li {
-  margin-bottom: 10px;
-}
+.process-steps li, .result-list li { margin-bottom: 10px; }
 
-.process-steps strong {
-  color: var(--sky-blue);
-  font-weight: 600;
-}
+.process-steps strong { color: var(--text-primary); font-weight: 600; }
 
 .result-list li::before {
-  content: "• ";
-  color: var(--neon-cyan);
+  content: "— ";
+  color: var(--text-secondary);
   font-weight: bold;
   margin-right: 8px;
 }
 
-/* === АДАПТИВНОСТЬ === */
+/* === Адаптивность === */
 @media (max-width: 600px) {
-  .container {
-    padding: 24px 16px;
-  }
-  .track-title {
-    font-size: 1.9rem;
-  }
-  .case-title {
-    font-size: 1.1rem;
-  }
-  .prompt-box {
-    padding: 12px;
-    font-size: 0.88rem;
-  }
-}
-
-/* === Тёмная тема — уже корректна === */
-@media (prefers-color-scheme: dark) {
-  body {
-    background: linear-gradient(135deg, #1a3a5f, #2a4a7a);
-  }
+  .container { padding: 24px 16px; }
+  .track-title { font-size: 2.0rem; }
+  .case-title { font-size: 1.1rem; }
+  .prompt-box { padding: 12px; font-size: 0.85rem; }
 }
