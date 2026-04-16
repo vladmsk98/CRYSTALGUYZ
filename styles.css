@@ -78,6 +78,22 @@ body {
   box-shadow: 0 0 28px rgba(0, 30, 50, 0.7);
 }
 
+/* === БАННЕР ПРОЕКТА === */
+.project-banner {
+  margin: 0 auto 20px; /* Отступ сверху и снизу */
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Чтобы не вылезал за пределы карточки */
+}
+
+.banner-logo {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Соответствует стилю обложки */
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.4); /* Тень как у обложки */
+  filter: contrast(1.05); /* Немного резче */
+}
+
 .track-title {
   font-size: 2.7rem;
   font-weight: 900;
