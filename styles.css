@@ -3,7 +3,7 @@
    Цель: чистая информация по релизу
    Поддержка: WCAG AA, адаптивность, доступность
    ================================================== */
-
+   
 :root {
   /* Морская палитра */
   --ocean-dark: #0a141d;      /* фон */
@@ -148,6 +148,70 @@ body {
     0 0 16px rgba(0, 243, 255, 0.4), /* Неоновый акцент */
     inset 0 0 12px rgba(0, 0, 0, 0.8);
   border-color: rgba(0, 243, 255, 0.5); /* Более яркая обводка */
+}
+
+/* === Текст песни === */
+.lyrics-section {
+  margin-top: 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.lyrics-section summary {
+  padding: 12px;
+  background: rgba(240, 246, 251, 0.08);
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--wave-gray);
+  transition: background 0.2s;
+}
+
+.lyrics-section summary:hover {
+  background: rgba(240, 246, 251, 0.15);
+}
+
+.lyrics-content {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--wave-gray);
+  line-height: 1.6;
+}
+
+/* === Кнопка "Скачать" === */
+.download-options summary {
+  padding: 10px 16px;
+  background: rgba(24, 119, 188, 0.2);
+  color: var(--foam-light);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 16px;
+  transition: background 0.2s;
+}
+
+.download-options summary:hover {
+  background: rgba(24, 119, 188, 0.3);
+}
+
+.format-list {
+  list-style: none;
+  padding: 10px 0;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--border-strong);
+}
+
+.format-list a {
+  display: block;
+  padding: 8px 16px;
+  color: var(--wave-gray);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.format-list a:hover {
+  background: rgba(240, 246, 251, 0.1);
+  color: var(--foam-light);
 }
 
 /* Адаптивность */
