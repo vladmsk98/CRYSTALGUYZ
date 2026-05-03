@@ -64,8 +64,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // === 3. Система оценки треков (звезды) и 5. A/B-тест - УДАЛЕНЫ ===
-  // Логика, связанная с .rating-section, .star, .ab-test-prompt, .ab-choice и т.д., удалена,
-  // так как соответствующие элементы отсутствуют в текущем HTML.
+  // === 5. Фильтр по типу трека (Сольные/Совместные) ===
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const trackWrappers = document.querySelectorAll('.track-wrapper');
 
+  // Функция для применения фильтра
+  function applyFilter(filterType) {
+    trackWrappers.forEach(wrapper => {
+      // Проверяем, соответствует ли тип трека выбранному фильтру
+      if (filterType === 'all' || wrapper.getAttribute('data-type') === filterType) {
+        wrapper.classList.remove('hidden'); // Показываем трек
+      } else {
+        wrapper.classList.add('hidden'); // Скрываем трек
+      }
+    });
+
+    // Обновляем активную кнопку
+    filterButtons.forEach(button => {
+      if (button.getAttribute('data-filter') === filterType) {
+        button.classList.add('active');
+      } else {
+        button.classList.remove('active');
+      }
+    });
+  }
+
+  // Назначаем обработчики кликов на кнопки фильтра
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filterValue = button.getAttribute('data-filter');
+      applyFilter(filterValue);
+    });
+  });
+
+  // Устанавливаем начальный фильтр (например, 'all')
+  applyFilter('all');
 });
